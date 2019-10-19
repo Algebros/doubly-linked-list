@@ -19,7 +19,7 @@ class LinkedList {
             this._tail = node;
         }
         this.length++;
-        return node;
+        return this;
     }
 
     head() {
@@ -69,6 +69,7 @@ class LinkedList {
         this._head = null;
         this._tail = null;
         this.length = 0;
+        return this;
     }
 
     deleteAt(index) {
@@ -81,31 +82,22 @@ class LinkedList {
         let next = currentNode.next;
         last.next = next;
         next.prev = last;
+        return this;
     }
 
     reverse() {
         let currentNode = this._head;
-        let index = 0;
         let arr = [];
-        while (index < this.length) {
-            arr.push(currentNode);
+        while (currentNode) {
+            arr.push(currentNode.data);
             currentNode = currentNode.next;
-            index++;
         }
         arr.reverse();
-        for (let i = 0; i < arr.length; i++) {
-            let xxx = arr[i].data;
-            let node = this.append(xxx);
-            if(i == 0) {
-                this._head = node;
-            }
-        }
-        arr.reverse();
-        arr.forEach(element => {
-            element.next = null;
-            element.prev = null;
+        this.clear();
+        arr.forEach(e => {
+            this.append(e);
         });
-        arr = null;
+        return this;
     }
 
     indexOf(data) {
